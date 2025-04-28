@@ -1,15 +1,16 @@
 import os
 import pandas as pd
 from sklearn.model_selection import train_test_split
+from omegaconf import DictConfig
 
-def load_raw_data(file_name: str = "train") -> pd.DataFrame:
-    """Load raw data from CSV"""
-    return pd.read_csv(os.path.join("data", "raw", f"{file_name}.csv"))
+def load_raw_data(cfg: DictConfig) -> pd.DataFrame:
+    """Load raw data from CSV using config path"""
+    return pd.read_csv(cfg.data.raw_path)
 
-def preprocess_data(df: pd.DataFrame) -> pd.DataFrame:
-    """Perform essential preprocessing"""
-    # Feature selection and engineering
-    df = df[['Survived', 'Pclass', 'Sex', 'Age', 'SibSp', 'Parch', 'Fare', 'Embarked']]
+def preprocess_data(df: pd.DataFrame, cfg: DictConfig) -> pd.DataFrame:
+    """Perform preprocessing using config features"""
+    features = cfg.data.features + [cfg.data.target]
+    df = df[features]
     
     # Convert categorical features
     df['Sex'] = df['Sex'].map({'male': 0, 'female': 1})
@@ -22,26 +23,23 @@ def preprocess_data(df: pd.DataFrame) -> pd.DataFrame:
     
     return df
 
-def split_data(df: pd.DataFrame, test_size: float = 0.2) -> tuple:
-    """Split data into train and test sets"""
-    X = df.drop('Survived', axis=1)
-    y = df['Survived']
-    return train_test_split(X, y, test_size=test_size, random_state=42, stratify=y)
+def split_data(df: pd.DataFrame, cfg: DictConfig) -> tuple:
+    """Split data using config parameters"""
+    X = df.drop(cfg.data.target, axis=1)
+    y = df[cfg.data.target]
+    return train_test_split(
+        X, y, 
+        test_size=cfg.data.test_size, 
+        random_state=cfg.data.random_state, 
+        stratify=y
+    )
 
-def save_processed_data(X_train, X_test, y_train, y_test):
-    """Save processed data to parquet"""
-    os.makedirs("data/processed", exist_ok=True)
+def save_processed_data(X_train, X_test, y_train, y_test, cfg: DictConfig):
+    """Save processed data using config path"""
+    os.makedirs(cfg.data.processed_path, exist_ok=True)
     
-    # Convert Series to DataFrame before saving
-    pd.DataFrame(X_train).to_parquet("data/processed/X_train.parquet")
-    pd.DataFrame(X_test).to_parquet("data/processed/X_test.parquet")
-    pd.DataFrame(y_train).to_parquet("data/processed/y_train.parquet")
-    pd.DataFrame(y_test).to_parquet("data/processed/y_test.parquet")
-
-def load_processed_data() -> tuple:
-    """Load processed data from parquet"""
-    X_train = pd.read_parquet("data/processed/X_train.parquet")
-    X_test = pd.read_parquet("data/processed/X_test.parquet")
-    y_train = pd.read_parquet("data/processed/y_train.parquet")['Survived']
-    y_test = pd.read_parquet("data/processed/y_test.parquet")['Survived']
-    return X_train, X_test, y_train, y_test
+    # Convert to DataFrame before saving
+    pd.DataFrame(X_train).to_parquet(f"{cfg.data.processed_path}/X_train.parquet")
+    pd.DataFrame(X_test).to_parquet(f"{cfg.data.processed_path}/X_test.parquet")
+    pd.DataFrame(y_train, columns=[cfg.data.target]).to_parquet(f"{cfg.data.processed_path}/y_train.parquet")
+    pd.DataFrame(y_test, columns=[cfg.data.target]).to_parquet(f"{cfg.data.processed_path}/y_test.parquet")

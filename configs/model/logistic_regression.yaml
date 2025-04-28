@@ -1,0 +1,7 @@
+# @package model
+_target_: sklearn.linear_model.LogisticRegression
+penalty: l2
+C: 1.0
+solver: lbfgs
+max_iter: 1000
+random_state: 42
