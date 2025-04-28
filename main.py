@@ -5,8 +5,8 @@ from src.Titanic.data.process import (
     save_processed_data,
     load_processed_data
 )
-from src.Titanic.training.train import train_model
-from src.Titanic.training.evaluate import evaluate_model
+from src.training.train import train_model
+from src.training.evaluate import evaluate_model
 from src.Titanic.logger import TitanicLogger
 
 

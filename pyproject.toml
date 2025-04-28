@@ -19,6 +19,13 @@ dependencies = [
     "pip",
     "python-dotenv",
     "ruff",
+    "scikit-learn",
+    "pandas",
+    "numpy",
+    "hyperopt",
+    "loguru",
+    "kaggle",
+    "pyarrow", 
 ]
 requires-python = "~=3.11.0"
 
