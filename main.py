@@ -1,5 +1,5 @@
 import hydra
-from omegaconf import DictConfig
+from omegaconf import DictConfig, OmegaConf
 from src.Titanic.data.process import (
     load_raw_data,
     preprocess_data,
@@ -10,8 +10,9 @@ from src.Titanic.training.train import train_model
 from src.Titanic.training.evaluate import evaluate_model
 from src.Titanic.logger import TitanicLogger
 
-@hydra.main(version_base=None, config_path="../configs", config_name="main")
+@hydra.main(version_base=None, config_path="configs", config_name="main")
 def main(cfg: DictConfig):
+    #print(OmegaConf.to_yaml(cfg))
     # Setup logger
     logger = TitanicLogger(logs_path="logs", level="DEBUG")
     
@@ -27,7 +28,7 @@ def main(cfg: DictConfig):
     model = train_model(X_train, y_train, cfg)
     
     logger.info("Evaluating model")
-    evaluate_model(X_test, y_test, cfg.model._target_.split(".")[-1])
+    evaluate_model(X_test, y_test, cfg.model._target_.split(".")[-1],logger)
 
 if __name__ == "__main__":
     main()

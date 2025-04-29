@@ -5,23 +5,26 @@ from omegaconf import DictConfig
 
 def load_raw_data(cfg: DictConfig) -> pd.DataFrame:
     """Load raw data from CSV using config path"""
-    return pd.read_csv(cfg.data.raw_path)
+    # Handle both nested and flat config structures
+    data_cfg = cfg.data.data if hasattr(cfg.data, 'data') else cfg.data
+    #print(f"Trying to load from: {data_cfg.raw_path}")
+    return pd.read_csv(data_cfg.raw_path)
 
 def preprocess_data(df: pd.DataFrame, cfg: DictConfig) -> pd.DataFrame:
-    """Perform preprocessing using config features"""
-    features = cfg.data.features + [cfg.data.target]
-    df = df[features]
+    """Perform preprocessing without SettingWithCopyWarning"""
+    # Create a copy of the selected columns
+    processed_df = df[cfg.data.features + [cfg.data.target]].copy()
     
     # Convert categorical features
-    df['Sex'] = df['Sex'].map({'male': 0, 'female': 1})
-    df['Embarked'] = df['Embarked'].map({'S': 0, 'C': 1, 'Q': 2, None: 0})
+    processed_df.loc[:, 'Sex'] = processed_df['Sex'].map({'male': 0, 'female': 1})
+    processed_df.loc[:, 'Embarked'] = processed_df['Embarked'].map({'S': 0, 'C': 1, 'Q': 2, None: 0})
     
     # Handle missing values
-    df['Age'].fillna(df['Age'].median(), inplace=True)
-    df['Fare'].fillna(df['Fare'].median(), inplace=True)
-    df['Embarked'].fillna(0, inplace=True)
+    processed_df.loc[:, 'Age'] = processed_df['Age'].fillna(processed_df['Age'].median())
+    processed_df.loc[:, 'Fare'] = processed_df['Fare'].fillna(processed_df['Fare'].median())
+    processed_df.loc[:, 'Embarked'] = processed_df['Embarked'].fillna(0)
     
-    return df
+    return processed_df
 
 def split_data(df: pd.DataFrame, cfg: DictConfig) -> tuple:
     """Split data using config parameters"""

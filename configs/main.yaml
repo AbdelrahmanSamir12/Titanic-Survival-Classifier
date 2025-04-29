@@ -1,3 +1,4 @@
+# configs/main.yaml
 defaults:
   - data: default
-  - override /model: random_forest
+  - model: random_forest
