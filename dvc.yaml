@@ -1,0 +1,25 @@
+stages:
+  prepare:
+    cmd: python main.py
+    deps:
+    - data/raw/train.csv
+    - src/Titanic/data/process.py
+    outs:
+    - data/processed/X_test.parquet
+    - data/processed/X_train.parquet
+    - data/processed/y_test.parquet
+    - data/processed/y_train.parquet
+  train:
+    cmd: python main.py
+    deps:
+    - data/processed/
+    - src/Titanic/training/train.py
+    outs:
+    - models/
+  evluate:
+    cmd: python main.py
+    deps:
+    - models/
+    - src/Titanic/training/evaluate.py
+    outs:
+    - reports/
