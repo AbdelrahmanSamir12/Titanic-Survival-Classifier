@@ -1,0 +1,41 @@
+data:
+  raw_path: data/raw/train.csv
+  processed_path: data/processed
+  test_size: 0.2
+  random_state: 42
+  features:
+  - Pclass
+  - Sex
+  - Age
+  - SibSp
+  - Parch
+  - Fare
+  - Embarked
+  target: Survived
+  param_grid:
+    n_estimators:
+    - 50
+    - 100
+    - 150
+    max_depth:
+    - 3
+    - 5
+    - 7
+model:
+  _target_: sklearn.ensemble.RandomForestClassifier
+  n_estimators: 100
+  max_depth: 5
+  random_state: 42
+  repo_name: mlops
+  use_mlflow: true
+  tracking_uri: https://dagshub.com/${oc.env:DAGSHUB_USERNAME}/mlops.mlflow
+grid_search:
+  param_grid:
+    n_estimators:
+    - 50
+    - 100
+    - 150
+    max_depth:
+    - 3
+    - 5
+    - 7

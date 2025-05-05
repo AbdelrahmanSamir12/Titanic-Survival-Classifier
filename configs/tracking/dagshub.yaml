@@ -1,0 +1,3 @@
+repo_name: "mlops"         # add this
+use_mlflow: true                       # ensures dagshub.init works for MLflow
+tracking_uri: "https://dagshub.com/${oc.env:DAGSHUB_USERNAME}/mlops.mlflow" # template

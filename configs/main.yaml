@@ -2,4 +2,5 @@
 defaults:
   - data: default
   - model: random_forest
+  - tracking: dagshub
   - grid_search: default

@@ -187,3 +187,8 @@ cython_debug/
 
 #kaggle file
 .kaggle.json
+
+
+#dvc config local file 
+
+.dvc/config.local
