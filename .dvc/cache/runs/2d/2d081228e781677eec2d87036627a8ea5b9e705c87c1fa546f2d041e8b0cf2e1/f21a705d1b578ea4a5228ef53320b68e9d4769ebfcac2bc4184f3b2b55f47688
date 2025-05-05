@@ -1,0 +1,17 @@
+cmd: python main.py
+deps:
+- path: data/processed/
+  hash: md5
+  md5: ca70500a4228ce85dfe626cc5c2e1ea6.dir
+  size: 29727
+  nfiles: 4
+- path: src/Titanic/training/train.py
+  hash: md5
+  md5: 4196b65334ddf6ce90209e8a340ff903
+  size: 546
+outs:
+- path: models/
+  hash: md5
+  md5: f5e89988224168dd53fbc217c77bfc4c.dir
+  size: 403401
+  nfiles: 1

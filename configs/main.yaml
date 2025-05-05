@@ -2,3 +2,4 @@
 defaults:
   - data: default
   - model: random_forest
+  - grid_search: default

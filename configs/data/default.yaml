@@ -12,3 +12,8 @@ features:
   - Fare
   - Embarked
 target: Survived
+
+
+param_grid:
+  n_estimators: [50, 100, 150]
+  max_depth: [3, 5, 7]

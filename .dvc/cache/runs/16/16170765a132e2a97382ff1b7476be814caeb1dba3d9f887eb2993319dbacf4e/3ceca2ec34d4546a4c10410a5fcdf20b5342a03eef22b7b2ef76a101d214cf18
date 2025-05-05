@@ -1,0 +1,17 @@
+cmd: python main.py
+deps:
+- path: models/
+  hash: md5
+  md5: f5e89988224168dd53fbc217c77bfc4c.dir
+  size: 403401
+  nfiles: 1
+- path: src/Titanic/training/evaluate.py
+  hash: md5
+  md5: 6a528735abfa78f775b75563ef4828ca
+  size: 1240
+outs:
+- path: reports/
+  hash: md5
+  md5: d6a87098416d7ac9de75cd0e1bbf4ab8.dir
+  size: 223
+  nfiles: 1
