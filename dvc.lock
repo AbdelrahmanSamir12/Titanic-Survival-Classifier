@@ -1,0 +1,66 @@
+schema: '2.0'
+stages:
+  train:
+    cmd: python main.py
+    deps:
+    - path: data/processed/
+      hash: md5
+      md5: ca70500a4228ce85dfe626cc5c2e1ea6.dir
+      size: 29727
+      nfiles: 4
+    - path: src/Titanic/training/train.py
+      hash: md5
+      md5: 4196b65334ddf6ce90209e8a340ff903
+      size: 546
+    outs:
+    - path: models/
+      hash: md5
+      md5: f5e89988224168dd53fbc217c77bfc4c.dir
+      size: 403401
+      nfiles: 1
+  evluate:
+    cmd: python main.py
+    deps:
+    - path: models/
+      hash: md5
+      md5: f5e89988224168dd53fbc217c77bfc4c.dir
+      size: 403401
+      nfiles: 1
+    - path: src/Titanic/training/evaluate.py
+      hash: md5
+      md5: 6a528735abfa78f775b75563ef4828ca
+      size: 1240
+    outs:
+    - path: reports/
+      hash: md5
+      md5: d6a87098416d7ac9de75cd0e1bbf4ab8.dir
+      size: 223
+      nfiles: 1
+  prepare:
+    cmd: python main.py
+    deps:
+    - path: data/raw/train.csv
+      hash: md5
+      md5: 2309cc5f04782ed9bb6016d9f4e381cf
+      size: 61194
+    - path: src/Titanic/data/process.py
+      hash: md5
+      md5: 8813378bca8dea4886cc4d83326f76f4
+      size: 2169
+    outs:
+    - path: data/processed/X_test.parquet
+      hash: md5
+      md5: cd2974fa51a58065ef4e553776221d50
+      size: 7661
+    - path: data/processed/X_train.parquet
+      hash: md5
+      md5: 52cde0a55c59fc7d940ccb2eca446449
+      size: 13059
+    - path: data/processed/y_test.parquet
+      hash: md5
+      md5: 96d1dc68ed05472d092771532fbd50dd
+      size: 3050
+    - path: data/processed/y_train.parquet
+      hash: md5
+      md5: 9ac92ba25d3ce4148f8602f5b9b85fe7
+      size: 5957
