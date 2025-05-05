@@ -188,5 +188,11 @@ cython_debug/
 #kaggle file
 .kaggle.json
 
+/reports
 
-#dvc config local file 
+# stp ignoring someting
+# DVC files
+!.dvc/
+!*.dvc
+
+.dvc/config.local
