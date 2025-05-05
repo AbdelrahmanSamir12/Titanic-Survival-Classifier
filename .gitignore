@@ -190,5 +190,3 @@ cython_debug/
 
 
 #dvc config local file 
-
-.dvc/config.local
