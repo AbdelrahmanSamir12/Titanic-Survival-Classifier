@@ -3,10 +3,10 @@ import hydra
 from omegaconf import DictConfig
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from training.preprocessing import Preprocessor
-from training.train import train_model
-from training.evaluate import evaluate_model
-from logger import TitanicLogger
+from src.Titanic.training.preprocessing import Preprocessor
+from src.Titanic.training.train import train_model
+from src.Titanic.training.evaluate import evaluate_model
+from src.Titanic.logger import TitanicLogger
 import joblib
 import mlflow
 import dagshub
@@ -16,7 +16,7 @@ from sklearn.pipeline import Pipeline
 from dotenv import load_dotenv
 load_dotenv()
 
-@hydra.main(version_base=None, config_path="../../configs", config_name="main")
+@hydra.main(version_base=None, config_path="configs", config_name="main")
 def run_pipeline(cfg: DictConfig):
     logger = TitanicLogger(logs_path="logs", level="DEBUG")
 
