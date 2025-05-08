@@ -94,7 +94,12 @@ def run_pipeline(cfg: DictConfig):
             ('model', model)
         ])
         # Log the full pipeline as MLflow model
-        mlflow.sklearn.log_model(full_pipeline, artifact_path="full_pipeline_model")
+        mlflow.sklearn.log_model(
+            full_pipeline,
+            artifact_path="full_pipeline_model",
+            signature=mlflow.models.infer_signature(X_train, y_train)  # ✅ Explicitly match raw input
+        )
+        joblib.dump(full_pipeline, "full_pipeline.joblib")
         # Log metrics
         #mlflow.log_metric("accuracy", accuracy)
         
