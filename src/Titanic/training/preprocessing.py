@@ -78,8 +78,12 @@ def run_preprocessing():
     
     # Save processed data and pipeline
     os.makedirs(processed_path, exist_ok=True)
-    pd.DataFrame(X_processed).to_parquet(os.path.join(processed_path, "X_train.parquet"))
-    y.to_parquet(os.path.join(processed_path, "y_train.parquet"))
+    #pd.DataFrame(X_processed).to_parquet(os.path.join(processed_path, "X_train.parquet"))
+    #y.to_parquet(os.path.join(processed_path, "y_train.parquet"))
     preprocessor.save(pipeline_path)
     
     print(f"Preprocessing complete. Pipeline saved to {pipeline_path}")
+
+
+if __name__ == "__main__":
+    run_preprocessing()
