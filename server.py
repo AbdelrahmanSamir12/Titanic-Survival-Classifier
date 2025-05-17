@@ -8,3 +8,5 @@ if __name__ == "__main__":
         accelerator="cpu"
     )
     server.run(port=8000, generate_client_file=False)
+
+    
