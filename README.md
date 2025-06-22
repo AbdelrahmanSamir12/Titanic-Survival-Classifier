@@ -1,61 +1,36 @@
-# mlops
+# Titanic Survival Classifier 🚢
 
-<a target="_blank" href="https://cookiecutter-data-science.drivendata.org/">
-    <img src="https://img.shields.io/badge/CCDS-Project%20template-328F97?logo=cookiecutter" />
-</a>
+An end-to-end machine learning project focused on predicting Titanic passenger survival. This project covers the full ML lifecycle — from data preprocessing to deployment on **Lightning AI**.
 
-a simple project for mlops course
+---
 
-## Project Organization
+## 🔧 Technologies Used
 
-```
-├── LICENSE            <- Open-source license if one is chosen
-├── Makefile           <- Makefile with convenience commands like `make data` or `make train`
-├── README.md          <- The top-level README for developers using this project.
-├── data
-│   ├── external       <- Data from third party sources.
-│   ├── interim        <- Intermediate data that has been transformed.
-│   ├── processed      <- The final, canonical data sets for modeling.
-│   └── raw            <- The original, immutable data dump.
-│
-├── docs               <- A default mkdocs project; see www.mkdocs.org for details
-│
-├── models             <- Trained and serialized models, model predictions, or model summaries
-│
-├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-│                         the creator's initials, and a short `-` delimited description, e.g.
-│                         `1.0-jqp-initial-data-exploration`.
-│
-├── pyproject.toml     <- Project configuration file with package metadata for 
-│                         mlops and configuration for tools like black
-│
-├── references         <- Data dictionaries, manuals, and all other explanatory materials.
-│
-├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-│   └── figures        <- Generated graphics and figures to be used in reporting
-│
-├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-│                         generated with `pip freeze > requirements.txt`
-│
-├── setup.cfg          <- Configuration file for flake8
-│
-└── mlops   <- Source code for use in this project.
-    │
-    ├── __init__.py             <- Makes mlops a Python module
-    │
-    ├── config.py               <- Store useful variables and configuration
-    │
-    ├── dataset.py              <- Scripts to download or generate data
-    │
-    ├── features.py             <- Code to create features for modeling
-    │
-    ├── modeling                
-    │   ├── __init__.py 
-    │   ├── predict.py          <- Code to run model inference with trained models          
-    │   └── train.py            <- Code to train models
-    │
-    └── plots.py                <- Code to create visualizations
+- **[uv](https://github.com/astral-sh/uv)** – Dependency management  
+- **[DVC](https://dvc.org/)** – Data version control  
+- **[Hydra](https://hydra.cc/)** – Dynamic configuration management  
+- **[MLflow](https://mlflow.org/)** via **[Dagshub](https://dagshub.com/)** – Experiment tracking and model registry  
+- **[FastAPI](https://fastapi.tiangolo.com/)** + **[LitServe](https://lightning.ai/lightning-ai-components/lit-serve)** – Model serving API  
+- **[Docker](https://www.docker.com/)** – Containerization  
+- **[Docker Hub](https://hub.docker.com/)** – Image registry  
+- **[Lightning AI](https://lightning.ai/)** – Deployment platform  
+
+---
+
+## 🚀 How to Run the Project
+
+### 1. Install Dependencies
+
+```bash
+uv sync
 ```
 
---------
+### 2. Preprocess and Train the Model
+```bash
+uv run main.py
+```
+### 3. Start the Inference Server
 
+```bash
+python server.py
+```
